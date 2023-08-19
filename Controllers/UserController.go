@@ -3,6 +3,7 @@ package UserController
 import (
 	"fmt"
 	dbDns "go_crud_01/config"
+	helper "go_crud_01/func"
 	"html/template"
 	"log"
 	"net/http"
@@ -40,6 +41,33 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	tmpl := template.Must(template.New("home.html").Funcs(template.FuncMap{"numRows": numRows}).ParseFiles("template/home.html"))
 	tmpl.Execute(w, users)
+}
+
+func Create(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+
+		username := r.FormValue("username")
+		password := r.FormValue("password")
+		usertoken := helper.RandomString(10)
+
+		conn, _ := dbDns.Connect()
+		stmt, err := conn.Prepare("insert into users (UserName, UserPass, UserToken) values (?, ?, ?)")
+
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer stmt.Close()
+
+		_, err = stmt.Exec(username, password, usertoken)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+
+	} else {
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+	}
 }
 
 func ViewUser(w http.ResponseWriter, r *http.Request) {

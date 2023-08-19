@@ -6,93 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Go CRUD </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
-    <style>
-        .navbar-brand {
-            color: aliceblue;
-        }
-        
-        .navbar-main {
-            background-color: rgb(36, 20, 124);
-        }
-        /* btn */
-        
-        .btn-create {
-            background-color: #0ba23d;
-            border: none;
-            color: white;
-            padding: 8px 8px 8px 8px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            margin: 8px 8px 8px 8px;
-            cursor: pointer;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-        }
-        
-        .btn-create:hover {
-            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-        }
-        
-        .btn-view {
-            background-color: #4863b5;
-            border: none;
-            color: white;
-            padding: 8px 8px 8px 8px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            margin: 8px 8px 8px 8px;
-            cursor: pointer;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-        }
-        
-        .btn-view:hover {
-            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-        }
-        
-        .btn-edit {
-            background-color: #e6d70c;
-            border: none;
-            color: white;
-            padding: 8px 8px 8px 8px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            margin: 8px 8px 8px 8px;
-            cursor: pointer;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-        }
-        
-        .btn-edit:hover {
-            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-        }
-        
-        .btn-delete {
-            background-color: #e14a0e;
-            border: none;
-            color: white;
-            padding: 8px 8px 8px 8px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            margin: 8px 8px 8px 8px;
-            cursor: pointer;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-        }
-        
-        .btn-delete:hover {
-            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-        }
-    </style>
+    <link rel="stylesheet" href="/public/css/main.css">
 </head>
 
 <body>
@@ -118,15 +32,21 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Create</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <form action="/create" method="post">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="username">Username</span>
+                                            <input type="text" class="form-control" placeholder="Username" id="username" name="username">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="password">Password</span>
+                                            <input type="text" class="form-control" placeholder="password" id="password" name="password">
+                                        </div>
+                                        <button type="submit" class="btn btn-sm btn-primary w-100">บันทึก</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -162,6 +82,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="/public/js/index.js"></script>
+
 </body>
 
 </html>

@@ -6,8 +6,24 @@
     background-color: rgb(36, 20, 124);
 }
 
+.btn-create {
+    background-color: #0ba23d;
+    border: none;
+    color: white;
+    padding: 8px 8px 8px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 8px 8px 8px 8px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
 
-/* btn */
+.btn-create:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
 
 .btn-view {
     background-color: #4863b5;
