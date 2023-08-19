@@ -39,7 +39,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		users = append(users, user)
 	}
 
-	tmpl := template.Must(template.New("home.html").Funcs(template.FuncMap{"numRows": numRows}).ParseFiles("template/home.html"))
+	tmpl := template.Must(template.New("home.gohtml").Funcs(template.FuncMap{"numRows": numRows}).ParseFiles("templates/layout/navbar.gohtml", "templates/home.gohtml"))
 	tmpl.Execute(w, users)
 }
 
@@ -70,7 +70,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ViewUser(w http.ResponseWriter, r *http.Request) {
+func EditUser(w http.ResponseWriter, r *http.Request) {
 	userID := r.URL.Query().Get("userID")
 
 	conn, _ := dbDns.Connect()

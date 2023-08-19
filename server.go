@@ -11,7 +11,7 @@ func main() {
 	http.Handle("/public/", http.StripPrefix("/public/", fs))
 
 	http.HandleFunc("/", UserController.GetUsers)
-	http.HandleFunc("/show", UserController.ViewUser)
 	http.HandleFunc("/create", UserController.Create)
+	http.HandleFunc("/show", UserController.EditUser)
 	http.ListenAndServe(":8080", nil)
 }
