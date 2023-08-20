@@ -63,11 +63,9 @@ func Create(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-
-	} else {
-		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+		http.Redirect(w, r, "/?action=insert&status=Y", http.StatusSeeOther)
 	}
+	http.Redirect(w, r, "/?action=insert&status=N", http.StatusSeeOther)
 }
 
 func Edit(w http.ResponseWriter, r *http.Request) {
@@ -132,7 +130,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	defer conn.Close()
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, "/?action=update&status=Y", http.StatusSeeOther)
 }
 
 func Delete(w http.ResponseWriter, r *http.Request) {
@@ -146,5 +144,5 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	defer conn.Close()
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, "/?action=delete&status=Y", http.StatusSeeOther)
 }
