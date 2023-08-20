@@ -22,7 +22,7 @@ func numRows(index int) int {
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	conn, _ := dbDns.Connect()
-	rows, err := conn.Query("select UserID, UserName, UserPass, UserToken from users")
+	rows, err := conn.Query("SELECT UserID, UserName, UserPass, UserToken FROM users")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -51,7 +51,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		usertoken := helper.RandomString(10)
 
 		conn, _ := dbDns.Connect()
-		stmt, err := conn.Prepare("insert into users (UserName, UserPass, UserToken) values (?, ?, ?)")
+		stmt, err := conn.Prepare("INSERT INTO users (UserName, UserPass, UserToken) VALUES (?, ?, ?)")
 
 		if err != nil {
 			log.Fatal(err)
@@ -117,4 +117,34 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Fprintf(w, "User not found")
 	}
+}
+
+func Update(w http.ResponseWriter, r *http.Request) {
+	userID := r.FormValue("userID")
+	username := r.FormValue("username")
+	password := r.FormValue("password")
+
+	conn, _ := dbDns.Connect()
+	_, err := conn.Exec("UPDATE users SET UserName = ?, UserPass = ? WHERE UserID = ?", username, password, userID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	defer conn.Close()
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func Delete(w http.ResponseWriter, r *http.Request) {
+	userID := r.URL.Query().Get("userID")
+
+	conn, _ := dbDns.Connect()
+	_, err := conn.Exec("DELETE FROM users WHERE UserID = ?", userID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	defer conn.Close()
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
