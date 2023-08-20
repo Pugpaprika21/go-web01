@@ -1,82 +1,64 @@
-<!doctype html>
-<html lang="en">
+{{ template "header.gohtml" }}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Go CRUD </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="/public/css/main.css">
-</head>
+<div class="container mt-4">
+    <div class="table-responsive">
+        <table class="table table-borderless align-middle caption-top text-center">
+            <caption>
+                <button type="button" class="button btn-create" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    create user
+                </button>
 
-<body>
-
-   {{ template "navbar.gohtml" }}
-
-    <div class="container mt-4">
-        <div class="table-responsive">
-            <table class="table table-borderless align-middle caption-top text-center">
-                <caption>
-                    <button type="button" class="button btn-create" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        create user
-                    </button>
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Create</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="/create" method="post">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="username">Username</span>
-                                            <input type="text" class="form-control" placeholder="Username" id="username" name="username">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="password">Password</span>
-                                            <input type="text" class="form-control" placeholder="password" id="password" name="password">
-                                        </div>
-                                        <button type="submit" class="btn btn-sm btn-primary w-100">บันทึก</button>
-                                    </form>
-                                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Create</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/create" method="post">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="username">Username</span>
+                                        <input type="text" class="form-control" placeholder="Username" id="username" name="username">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="password">Password</span>
+                                        <input type="text" class="form-control" placeholder="password" id="password" name="password">
+                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-primary w-100">save</button>
+                                </form>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                </caption>
-                <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>username</td>
-                        <td>password</td>
-                        <td>token</td>
-                        <td>action</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ range $index, $user := . }}
-                    <tr>
-                        <td>{{ numRows $index }}</td>
-                        <td>{{ .UserName }}</td>
-                        <td>{{ .UserPass }}</td>
-                        <td>{{ .UserToken }}</td>
-                        <td>
-                            <a href="/show?userID={{ .UserID }}" class="button btn-view">view</a>&nbsp;
-                            <a href="/edit?userID={{ .UserID }}" class="button btn-edit">edit</a>&nbsp;
-                            <a href="/delete?userID={{ .UserID }}" class="button btn-delete">delete</a>&nbsp;
-                        </td>
-                    </tr>
-                    {{ end }}
-                </tbody>
-            </table>
-        </div>
+            </caption>
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>username</td>
+                    <td>password</td>
+                    <td>token</td>
+                    <td>action</td>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range $index, $user := . }}
+                <tr>
+                    <td>{{ numRows $index }}</td>
+                    <td>{{ .UserName }}</td>
+                    <td>{{ .UserPass }}</td>
+                    <td>{{ .UserToken }}</td>
+                    <td>
+                        <a href="/show?userID={{ .UserID }}" class="button btn-view">view</a>&nbsp;
+                        <a href="/edit?userID={{ .UserID }}" class="button btn-edit">edit</a>&nbsp;
+                        <a href="/delete?userID={{ .UserID }}" class="button btn-delete">delete</a>&nbsp;
+                    </td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script src="/public/js/index.js"></script>
-
-</body>
-
-</html>
+{{ template "footer.gohtml" }}

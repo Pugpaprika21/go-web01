@@ -39,7 +39,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		users = append(users, user)
 	}
 
-	tmpl := template.Must(template.New("home.gohtml").Funcs(template.FuncMap{"numRows": numRows}).ParseFiles("templates/layout/navbar.gohtml", "templates/home.gohtml"))
+	tmpl := template.Must(template.New("home.gohtml").Funcs(template.FuncMap{"numRows": numRows}).ParseFiles("templates/layout/header.gohtml", "templates/layout/footer.gohtml", "templates/home.gohtml"))
 	tmpl.Execute(w, users)
 }
 
@@ -70,7 +70,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func EditUser(w http.ResponseWriter, r *http.Request) {
+func Edit(w http.ResponseWriter, r *http.Request) {
 	userID := r.URL.Query().Get("userID")
 
 	conn, _ := dbDns.Connect()
@@ -89,10 +89,31 @@ func EditUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fmt.Fprintf(w, "User ID: %s\n", user.UserID)
-		fmt.Fprintf(w, "User Name: %s\n", user.UserName)
-		fmt.Fprintf(w, "User Password: %s\n", user.UserPass)
-		fmt.Fprintf(w, "User Token: %s\n", user.UserToken)
+		detail := struct {
+			MakePass string
+		}{
+			MakePass: helper.RandomString(10),
+		}
+
+		userDetail := struct {
+			ID       int
+			Username string
+			Password string
+			Token    string
+			Detail   struct {
+				MakePass string
+			}
+		}{
+			ID:       user.UserID,
+			Username: user.UserName,
+			Password: user.UserPass,
+			Token:    user.UserToken,
+			Detail:   detail,
+		}
+
+		tmpl := template.Must(template.New("edit.gohtml").ParseFiles("templates/layout/header.gohtml", "templates/layout/footer.gohtml", "templates/edit.gohtml"))
+		tmpl.Execute(w, userDetail)
+
 	} else {
 		fmt.Fprintf(w, "User not found")
 	}

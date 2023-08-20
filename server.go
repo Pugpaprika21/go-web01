@@ -12,6 +12,6 @@ func main() {
 
 	http.HandleFunc("/", UserController.GetUsers)
 	http.HandleFunc("/create", UserController.Create)
-	http.HandleFunc("/edit", UserController.EditUser)
+	http.HandleFunc("/edit", UserController.Edit)
 	http.ListenAndServe(":8080", nil)
 }
